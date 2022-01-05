@@ -15,14 +15,18 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch("https://jsonplaceholder.typicode.com/users")
+    async function myFetch() {
+      return await fetch("https://jsonplaceholder.typicode.com/userspopo");
+    }
+    myFetch()
       .then((response) => response.json())
-      .then((users) => this.setState({ monsters: users }));
+      .then((users) => this.setState({ monsters: users }))
+      .catch((e) => console.log(e));
   }
- 
-  handelChange=(e)=> {
+
+  handelChange = (e) => {
     this.setState({ searchField: e.target.value });
-  }
+  };
 
   render() {
     const { monsters, searchField } = this.state;
@@ -31,7 +35,7 @@ class App extends React.Component {
     );
     return (
       <div className="app">
-      <h1>Monsters rolodex</h1>
+        <h1>Monsters rolodex</h1>
         <SearchBox
           placeholder="Seach Your Monsters"
           handelchange={this.handelChange}
